@@ -1,0 +1,19 @@
+:root {
+    --test: calc(100vh - (100vw - 100%));
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+.backgroundvideo {
+    width:  100%;
+    /*
+    100% takes scrollbars into account, 100vw - 100% results in width of the scrollbar
+    */
+    height: 100vh;
+    object-fit: cover;
+}

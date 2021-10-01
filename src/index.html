@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
     <script src="./index.js" type="module" defer></script>
     <title>WeatherApp</title>
 </head>
 <body>
-    <video autoplay loop class="background-video">
-        <source src=""
+    <!--without muted tag, chrome will not play video automatically -->
+    <!--playsinline for safari-->
+    <video autoplay loop muted playsinline class="backgroundvideo">
+        <source src="./videos/fog/fog_forest_drive.webm"></source>
     </video>
 </body>
 </html>
