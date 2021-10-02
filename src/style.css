@@ -8,18 +8,6 @@
     --test: calc(100vh - (100vw - 100%));
 }
 
-body {
-    margin: 0;
-    padding: 0;
-
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-}
-
 .backgroundvideo {
     width:  100%;
     /*
@@ -46,6 +34,21 @@ body {
     height: 5rem;
     width: 40%;
     min-width: 20rem;
+
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    transition: top 1000ms;
+}
+
+.search-container.active {
+    top: 5rem;
+    bottom: auto
 }
 
 .search-container input {
