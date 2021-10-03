@@ -3,6 +3,8 @@
     src: url('./fonts/CircularStd.woff');
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 
 :root {
     --test: calc(100vh - (100vw - 100%));
@@ -72,4 +74,58 @@
 .search-container img {
     cursor: pointer;
     padding: 1.5rem;
+}
+
+.weather-container img {
+    min-width: 10rem;
+    max-width: 25rem;
+}
+
+.weather-container {
+    color: white;
+    font-family: Circular, sans-serif;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    width: inherit;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms;
+}
+
+.weather-container.active {
+    opacity: 1;
+}
+
+.weather-description {
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.weather-description .temperature {
+    font-size: 10em;
+    font-family: Circular, sans-serif;
+    line-height: 0.7em;
+}
+
+.weather-description .main,
+.weather-description .details {
+    font-family: 'Open Sans';
+    font-size: 2em;
+    line-height: 1em;
 }
