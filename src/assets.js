@@ -30,7 +30,7 @@ class Video {
 
     static getFogSRC = () => this.#getRandomEntry(fog);
 
-    static getRainRC = () => this.#getRandomEntry(rain);
+    static getRainSRC = () => this.#getRandomEntry(rain);
 
     static getSnowSRC = () => this.#getRandomEntry(snow);
 
