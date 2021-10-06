@@ -46,15 +46,26 @@ class Video {
         return array[randomIndex];
     }
 
-    static getFogSRC = () => this.#getRandomEntry(this.fog);
+    static #getFogSRC = () => this.#getRandomEntry(this.fog);
 
-    static getRainSRC = () => this.#getRandomEntry(this.rain);
+    static #getRainSRC = () => this.#getRandomEntry(this.rain);
 
-    static getSnowSRC = () => this.#getRandomEntry(this.snow);
+    static #getSnowSRC = () => this.#getRandomEntry(this.snow);
 
-    static getSunSRC = () => this.#getRandomEntry(this.sun);
+    static #getSunSRC = () => this.#getRandomEntry(this.sun);
 
-    static getThunderSRC = () => this.#getRandomEntry(this.thunder);
+    static #getThunderSRC = () => this.#getRandomEntry(this.thunder);
+
+    static getVideo(id) {
+        const weather = getWeather(id);
+
+        if (weather === 'fog' || weather === 'mist' || weather === 'smoke' || weather === 'haze' || weather === 'dust') return this.#getFogSRC();
+        else if (weather === 'rain' || weather === 'drizzle' || weather === 'clouds') return this.#getRainSRC();
+        else if (weather === 'snow') return this.#getSnowSRC();
+        else if (weather === 'sun' || weather === 'clear') return this.#getSunSRC();
+        else if (weather === 'thunder' || weather === 'tornado') return this.#getThunderSRC();
+        else return this.#getRainSRC();
+    }
 }
 
 
@@ -74,6 +85,7 @@ import cloudsSVG from './svg/weather/clouds.svg';
 class Image extends Video {
     static getSVG(id) {
         const weather = getWeather(id);
+
         if (weather === 'thunderstorm') return thunderstormSVG;
         else if (weather === 'drizzle') return drizzleSVG;
         else if (weather === 'rain') return rainSVG;
@@ -94,8 +106,22 @@ class Image extends Video {
 }
 
 class Media extends Image {
-    get(id) {
+    static getMedia(id) {
+        const correspondingMedia = {
+            weather: null,
+            video: null,
+            image: null,
+        };
 
+        const weather = getWeather(id);
+        const image = this.getSVG(id);
+        const video = this.getVideo.call(Video, id);
+
+        correspondingMedia.weather = weather;
+        correspondingMedia.image = image;
+        correspondingMedia.video = video;
+
+        return correspondingMedia;
     }
 }
 
