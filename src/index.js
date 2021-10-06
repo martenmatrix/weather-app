@@ -1,8 +1,7 @@
 import css from './style.css';
 import Video from './assets.js';
 
-
-console.log(Video.getRainRC);
+console.log(Video.getFogSRC());
 
 class WeatherInfo {
     static OpenWeatherAPIKEY = 'd6ba7bd5f4bb9861d8b78c0e508d31eb';

@@ -38,6 +38,10 @@ module.exports = {
             type: 'asset/resource',
            },
            {
+            test: /\.(webm)$/i,
+            type: 'asset/resource',
+           },
+           {
              test: /\.html$/i,
              loader: 'html-loader',
            },
