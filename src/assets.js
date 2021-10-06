@@ -1,5 +1,3 @@
-/* Import videos */
-import { PassThrough } from 'stream';
 import fog from './videos/fog/fog_forest_drive.webm';
 import rain_day from './videos/rain/rain_window_day.webm';
 import rain_night from './videos/rain/rain_window_night.webm';
@@ -41,20 +39,20 @@ class Video {
 }
 
 
-import thunderstormSVG from '.svg/weather/thunderstorm.svg';
-import drizzleSVG from '.svg/weather/drizzle.svg';
-import rainSVG from '.svg/weather/rain.svg';
-import snowSVG from '.svg/weather/snow.svg';
-import mistSVG from '.svg/weather/mist.svg';
-import smokeSVG from '.svg/weather/smoke.svg';
-import hazeSVG from '.svg/weather/haze.svg';
-import dustSVG from '.svg/weather/dust.svg';
-import fogSVG from '.svg/weather/fog.svg';
-import tornadoSVG from '.svg/weather/tornado.svg';
-import clearSVG from '.svg/weather/clear.svg';
-import cloudsSVG from '.svg/weather/clouds.svg';
+import thunderstormSVG from './svg/weather/thunderstorm.svg';
+import drizzleSVG from './svg/weather/drizzle.svg';
+import rainSVG from './svg/weather/rain.svg';
+import snowSVG from './svg/weather/snow.svg';
+import mistSVG from './svg/weather/mist.svg';
+import smokeSVG from './svg/weather/smoke.svg';
+import hazeSVG from './svg/weather/haze.svg';
+import dustSVG from './svg/weather/dust.svg';
+import fogSVG from './svg/weather/fog.svg';
+import tornadoSVG from './svg/weather/tornado.svg';
+import clearSVG from './svg/weather/clear.svg';
+import cloudsSVG from './svg/weather/clouds.svg';
 
-class Image {
+class Image extends Video {
     static getSVG(id) {
         if (id >= 200 || id <= 232) return thunderstormSVG;
         else if (id >= 300 && id <= 321) return drizzleSVG;
@@ -75,6 +73,11 @@ class Image {
     }
 }
 
-// class to get video and svg only from id
-export {Video, Image};
+class Media extends Image {
+    static test() {
+        console.log(this.fog);
+    }
+}
+
+export default Media;
 
