@@ -1,3 +1,22 @@
+function getWeather(id) {
+    if (id >= 200 || id <= 232) return 'thunderstorm';
+    else if (id >= 300 && id <= 321) return 'drizzle';
+    else if (id >= 500 && id <= 531) return 'rain';
+    else if (id >= 600 && id <= 622) return 'snow';
+    else if (id === 700) return 'mist';
+    else if (id === 711) return 'smoke';
+    else if (id === 721) return 'haze';
+    else if (id === 731 || id === 761) return 'dust';
+    else if (id === 741) return 'fog';
+    // 751  sand image missing
+    // 762 ash image missing
+    // 771 squall missing
+    else if (id === 781) return 'tornado';
+    else if (id === 800) return 'clear';
+    else if (id >= 800 && id <= 804) return 'clouds';
+    else return 'error';
+}
+
 import fog from './videos/fog/fog_forest_drive.webm';
 import rain_day from './videos/rain/rain_window_day.webm';
 import rain_night from './videos/rain/rain_window_night.webm';
@@ -54,28 +73,29 @@ import cloudsSVG from './svg/weather/clouds.svg';
 
 class Image extends Video {
     static getSVG(id) {
-        if (id >= 200 || id <= 232) return thunderstormSVG;
-        else if (id >= 300 && id <= 321) return drizzleSVG;
-        else if (id >= 500 && id <= 531) return rainSVG;
-        else if (id >= 600 && id <= 622) return snowSVG;
-        else if (id === 700) return mistSVG;
-        else if (id === 711) return smokeSVG;
-        else if (id === 721) return hazeSVG;
-        else if (id === 731 || id === 761) return dustSVG;
-        else if (id === 741) return fogSVG;
+        const weather = getWeather(id);
+        if (weather === 'thunderstorm') return thunderstormSVG;
+        else if (weather === 'drizzle') return drizzleSVG;
+        else if (weather === 'rain') return rainSVG;
+        else if (weather === 'snow') return snowSVG;
+        else if (weather === 'mist') return mistSVG;
+        else if (weather === 'smoke') return smokeSVG;
+        else if (weather === 'haze') return hazeSVG;
+        else if (weather === 'dust') return dustSVG;
+        else if (weather === 'fog') return fogSVG;
         // 751  sand image missing
         // 762 ash image missing
         // 771 squall missing
-        else if (id === 781) return tornadoSVG;
-        else if (id === 800) return clearSVG;
-        else if (id >= 800 && id <= 804) return cloudsSVG;
+        else if (weather === 'tornado') return tornadoSVG;
+        else if (weather === 'clear') return clearSVG;
+        else if (weather === 'clouds') return cloudsSVG;
         else return cloudsSVG;
     }
 }
 
 class Media extends Image {
-    static test() {
-        console.log(this.fog);
+    get(id) {
+
     }
 }
 
