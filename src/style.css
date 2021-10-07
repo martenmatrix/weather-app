@@ -193,3 +193,35 @@ input[name="isCelsius"]:checked + .selected
     font-family: Circular, sans-serif;
     font-size: 1em;
 }
+
+/*CSS loader*/
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+.loading {
+    opacity: 0;
+    pointer-events: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: 2px solid black;
+    border-top: 2px solid transparent;
+    transition: opacity 200ms;
+}
+
+.loading.active {
+    opacity: 1;
+    animation: rotate 2s linear infinite;
+}

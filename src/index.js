@@ -52,11 +52,8 @@ class DOM {
         weatherDescription.textContent = description;
     }
 
-    static enableLoadingState() {
-
-    }
-
-    static diableLoadingState() {
-
+    static toggleLoadingState() {
+        const loadingCircle = document.querySelector('.loading');
+        loadingCircle.classList.toggle('active');
     }
 }
