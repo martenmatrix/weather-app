@@ -218,7 +218,7 @@ input[name="isCelsius"]:checked + .selected
     border-radius: 50%;
     border: 2px solid black;
     border-top: 2px solid transparent;
-    transition: opacity 200ms;
+    transition: opacity 200ms 200ms;
 }
 
 .loading.active {
