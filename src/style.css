@@ -166,7 +166,7 @@
     transition: left 200ms;
 }
 
-input[name="isCelsius"]:checked + .selected
+input[name="isFahrenheit"]:checked + .selected
 {
     left: calc((100% - 8%) - 35%);
 }

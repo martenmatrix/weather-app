@@ -11,9 +11,12 @@ class WeatherInfo {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${this.units}&appid=${this.OpenWeatherAPIKEY}`;
         const response = await fetch(url, {mode: 'cors'});
         const data = await response.json();
-        console.log(data);
 
         return data;
+    }
+
+    static convertDegrees(degrees) {
+        console.log('hey')
     }
 }
 
@@ -40,6 +43,11 @@ class DOM {
         weatherInfo.classList.remove('active');
     }
 
+    static setBackgroundVideoURL(src) {
+        const backgroundVideoSource = document.querySelector('.backgroundvideo source');
+        backgroundVideoSource.src = src;
+    }
+
     static setWeatherSVG(src) {
         const currenWeatherSVG = document.querySelector('.weather-container .weather-icon');
         currenWeatherSVG.src = src;
@@ -55,22 +63,79 @@ class DOM {
         weatherDescription.textContent = description;
     }
 
+    static setWeatherTemperature(number) {
+        const weatherTempTextDiv = document.querySelector('.weather-container .temp-number');
+        weatherTempTextDiv.textContent = number;
+    }
+
     static toggleLoadingState() {
         const loadingCircle = document.querySelector('.loading');
         loadingCircle.classList.toggle('active');
     }
 
     static getInput() {
-        const searchBar = document.querySelector('.search-container .locationinput');
-        return searchBar.value;
+        const input = document.querySelector('.search-container input');
+        return input.value;
+    }
+
+    static getSelectedUnit() {
+        const unitInput = document.querySelector('input[name="isCelsius"]');
+        const isCelsius = unitInput.checked;
+        return isCelsius;
     }
 }
 
-WeatherInfo.getDataForCity('hamburg');
+async function getWeatherObjectFromInput() {
+    const input = DOM.getInput();
+    const weatherInfo = await WeatherInfo.getDataForCity(input);
+    if (!(weatherInfo.cod === 200)) return 'error';
+    return weatherInfo;
+}
 
+function getAssets(weatherObject) {
+    const id = weatherObject.weather[0].id;
+    const mediaObject = Media.getMedia(id);
+    return mediaObject;
+}
 
+function displayAssets(mediaObject) {
+    const svgurl = mediaObject.image;
+    const videourl = mediaObject.video;
 
-document.addEventListener('click', function() {
+    DOM.setWeatherSVG(svgurl);
+    DOM.setBackgroundVideoURL(videourl);
+}
+
+function displayInformation(weatherObject) {
+    const title = weatherObject.weather[0].main;
+    const details = weatherObject.weather[0].description;
+    const currentDegrees = weatherObject.main.temp;
+    const convertedDegrees = convertDegrees(currentDegrees);
+
+    DOM.setWeatherTitle(title);
+    DOM.setWeatherDetails(details);
+    DOM.setWeatherTemperature(convertDegrees);
+}
+
+async function getInputAndDisplayData() {
     DOM.moveSearchToTop();
+    DOM.setInfoInvisible();
     DOM.toggleLoadingState();
-})
+    const weatherObject = await getWeatherObjectFromInput();
+    
+    if (weatherObject === 'error') {
+        DOM.toggleLoadingState();
+        DOM.setInfoVisible();
+        console.error('ERROR. Does the city exist, which you entered?');
+        return;
+    }
+    const assets = getAssets(weatherObject);
+    displayAssets(assets);
+    displayInformation(weatherObject);
+    DOM.toggleLoadingState();
+    DOM.setInfoVisible();
+}
+
+document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') getInputAndDisplayData();
+    });

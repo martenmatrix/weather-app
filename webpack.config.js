@@ -8,6 +8,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
 
   devServer: {
@@ -25,6 +26,19 @@ module.exports = {
 
   module: {
       rules: [
+            {
+             test: /\.m?js$/,
+             exclude: /(node_modules|bower_components)/,
+             use: {
+               loader: 'babel-loader',
+               options: {
+                 presets: [['@babel/preset-env', {useBuiltIns: 'usage', corejs: 3}]],
+                 inputSourceMap: false,
+                 sourceMaps: 'both',
+                 compact: false,
+                }
+            },
+            },
             {
              test: /\.css$/i,
              use: ['style-loader', 'css-loader'],
@@ -44,17 +58,7 @@ module.exports = {
             {
              test: /\.html$/i,
              loader: 'html-loader',
-            },
-            {
-             test: /\.m?js$/,
-             exclude: /(node_modules|bower_components)/,
-             use: {
-               loader: 'babel-loader',
-               options: {
-                 presets: [['@babel/preset-env', {useBuiltIns: 'usage', corejs: 3}]]
-                }
-            },
-          },
+            }
       ],
   },
 
