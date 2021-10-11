@@ -15,8 +15,23 @@ class WeatherInfo {
         return data;
     }
 
-    static convertDegrees(degrees) {
-        console.log('hey')
+    static convertDegrees(degrees, currentUnit, useUnit) {
+        const round = (number) => Math.round(number); 
+        const convertCelsiusToFahrenheit = (celsius) => (celsius * 9/5) + 32
+        const convertFahrenheitToCelsius = (fahrenheit) => (fahrenheit - 32) * 5/9;
+
+        if (currentUnit === 'fahrenheit' && useUnit === 'celsius') {
+            const celsius = convertFahrenheitToCelsius(degrees);
+            const roundedCelsius = round(celsius);
+            return roundedCelsius;
+        }
+        if (currentUnit === 'celsius' && useUnit === 'fahrenheit') {
+            const fahrenheit = convertCelsiusToFahrenheit(degrees);
+            const roundedFahrenheit = round(fahrenheit);
+            return roundedFahrenheit;
+        }
+
+        return round(degrees);
     }
 }
 
@@ -24,8 +39,11 @@ class DOM {
 // weather codes https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
 //sand has no icon//ash has no icon//squall has no icon
     static #setBackgroundVideo(src) {
+        const videoElement = document.querySelector('video');
         const sourceElement = document.querySelector('video source')
-        sourceElement.src = src;
+        sourceElement.setAttribute("src", src);
+        videoElement.load();
+        videoElement.play();
     }
 
     static moveSearchToTop() {
@@ -79,9 +97,10 @@ class DOM {
     }
 
     static getSelectedUnit() {
-        const unitInput = document.querySelector('input[name="isCelsius"]');
-        const isCelsius = unitInput.checked;
-        return isCelsius;
+        const unitInput = document.querySelector('input[name="isFahrenheit"]');
+        const isFahrenheit = unitInput.checked;
+        if (isFahrenheit) return 'fahrenheit';
+        else return 'celsius';
     }
 }
 
@@ -110,11 +129,12 @@ function displayInformation(weatherObject) {
     const title = weatherObject.weather[0].main;
     const details = weatherObject.weather[0].description;
     const currentDegrees = weatherObject.main.temp;
-    const convertedDegrees = convertDegrees(currentDegrees);
+    const selectedUnit = DOM.getSelectedUnit();
+    const convertedDegrees = WeatherInfo.convertDegrees(currentDegrees, selectedUnit, selectedUnit);
 
     DOM.setWeatherTitle(title);
     DOM.setWeatherDetails(details);
-    DOM.setWeatherTemperature(convertDegrees);
+    DOM.setWeatherTemperature(convertedDegrees);
 }
 
 async function getInputAndDisplayData() {
@@ -139,3 +159,13 @@ async function getInputAndDisplayData() {
 document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') getInputAndDisplayData();
     });
+const searchButton = document.querySelector('.search-container img');
+searchButton.addEventListener('click', getInputAndDisplayData);
+
+const switchUnit = document.querySelector('.celsius-fahrenheit-switch input');
+switchUnit.addEventListener('click', () => {
+    const selectedUnit = DOM.getSelectedUnit();
+    const currentTemperature = document.querySelector('.temp-number').textContent;
+    const newUnit = WeatherInfo.getSelectedUnit();
+    const convertedTemperature = WeatherInfo.convertDegrees()
+})

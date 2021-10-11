@@ -1,5 +1,5 @@
 function getWeather(id) {
-    if (id >= 200 || id <= 232) return 'thunderstorm';
+    if (id >= 200 && id <= 232) return 'thunderstorm';
     else if (id >= 300 && id <= 321) return 'drizzle';
     else if (id >= 500 && id <= 531) return 'rain';
     else if (id >= 600 && id <= 622) return 'snow';
