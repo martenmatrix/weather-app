@@ -8,9 +8,11 @@
     ],
     "parserOptions": {
         "ecmaVersion": 12,
-        "sourceType": "module"
+        "sourceType": "module",
+        "requireConfigFile": false
     },
     "ignorePatterns": ["/node_modules/", "webpack.config.js"],
     "rules": {
-    }
+    },
+    "parser": "@babel/eslint-parser"
 }
