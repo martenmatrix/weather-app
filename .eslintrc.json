@@ -13,6 +13,8 @@
     },
     "ignorePatterns": ["/node_modules/", "webpack.config.js"],
     "rules": {
+        "indent": "off",
+        "max-classes-per-file": "off"
     },
     "parser": "@babel/eslint-parser"
 }

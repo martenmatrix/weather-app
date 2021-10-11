@@ -1,24 +1,25 @@
 import css from './style.css';
-import Media from './assets.js';
+import Media from './assets';
 
 // do i really need to have the runtime-generator installed as dependency?
 
 class WeatherInfo {
     static OpenWeatherAPIKEY = 'd6ba7bd5f4bb9861d8b78c0e508d31eb';
+
     static units = 'metric';
 
     static async getDataForCity(city) {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${this.units}&appid=${this.OpenWeatherAPIKEY}`;
-        const response = await fetch(url, {mode: 'cors'});
+        const response = await fetch(url, { mode: 'cors' });
         const data = await response.json();
 
         return data;
     }
 
     static convertDegrees(degrees, currentUnit, useUnit) {
-        const round = (number) => Math.round(number); 
-        const convertCelsiusToFahrenheit = (celsius) => (celsius * 9/5) + 32
-        const convertFahrenheitToCelsius = (fahrenheit) => (fahrenheit - 32) * 5/9;
+        const round = (number) => Math.round(number);
+        const convertCelsiusToFahrenheit = (celsius) => (celsius * (9 / 5)) + 32;
+        const convertFahrenheitToCelsius = (fahrenheit) => (fahrenheit - 32) * (5 / 9);
 
         if (currentUnit === 'fahrenheit' && useUnit === 'celsius') {
             const celsius = convertFahrenheitToCelsius(degrees);
@@ -37,7 +38,7 @@ class WeatherInfo {
 
 class DOM {
 // weather codes https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
-//sand has no icon//ash has no icon//squall has no icon
+// sand has no icon//ash has no icon//squall has no icon
     static setBackgroundVideoURL(src) {
         const videoElement = document.querySelector('video');
         const sourceElement = document.querySelector('video source');
@@ -95,7 +96,7 @@ class DOM {
         const unitInput = document.querySelector('input[name="isFahrenheit"]');
         const isFahrenheit = unitInput.checked;
         if (isFahrenheit) return 'fahrenheit';
-        else return 'celsius';
+        return 'celsius';
     }
 }
 
@@ -107,7 +108,7 @@ async function getWeatherObjectFromInput() {
 }
 
 function getAssets(weatherObject) {
-    const id = weatherObject.weather[0].id;
+    const { id } = weatherObject.weather[0];
     const mediaObject = Media.getMedia(id);
     return mediaObject;
 }
@@ -137,12 +138,11 @@ async function getInputAndDisplayData() {
     DOM.setInfoInvisible();
     DOM.toggleLoadingState();
     const weatherObject = await getWeatherObjectFromInput();
-    
+
     if (weatherObject === 'error') {
         DOM.toggleLoadingState();
         DOM.setInfoVisible();
-        console.error('ERROR. Does the city exist, which you entered?');
-        return;
+        throw new Error('ERROR. Does the city exist, which you entered?');
     }
     const assets = getAssets(weatherObject);
     displayAssets(assets);
@@ -167,4 +167,4 @@ switchUnit.addEventListener('click', () => {
 
     const convertedTemperature = WeatherInfo.convertDegrees(currentTemperature, oldUnit, newUnit);
     currentTemperatureDIV.textContent = convertedTemperature;
-})
+});
