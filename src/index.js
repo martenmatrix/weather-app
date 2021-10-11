@@ -38,10 +38,10 @@ class WeatherInfo {
 class DOM {
 // weather codes https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
 //sand has no icon//ash has no icon//squall has no icon
-    static #setBackgroundVideo(src) {
+    static setBackgroundVideoURL(src) {
         const videoElement = document.querySelector('video');
-        const sourceElement = document.querySelector('video source')
-        sourceElement.setAttribute("src", src);
+        const sourceElement = document.querySelector('video source');
+        sourceElement.src = src;
         videoElement.load();
         videoElement.play();
     }
@@ -59,11 +59,6 @@ class DOM {
     static setInfoInvisible() {
         const weatherInfo = document.querySelector('.weather-container');
         weatherInfo.classList.remove('active');
-    }
-
-    static setBackgroundVideoURL(src) {
-        const backgroundVideoSource = document.querySelector('.backgroundvideo source');
-        backgroundVideoSource.src = src;
     }
 
     static setWeatherSVG(src) {
