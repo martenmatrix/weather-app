@@ -125,7 +125,7 @@ function displayInformation(weatherObject) {
     const details = weatherObject.weather[0].description;
     const currentDegrees = weatherObject.main.temp;
     const selectedUnit = DOM.getSelectedUnit();
-    const convertedDegrees = WeatherInfo.convertDegrees(currentDegrees, selectedUnit, selectedUnit);
+    const convertedDegrees = WeatherInfo.convertDegrees(currentDegrees, 'celsius', selectedUnit);
 
     DOM.setWeatherTitle(title);
     DOM.setWeatherDetails(details);
@@ -159,8 +159,12 @@ searchButton.addEventListener('click', getInputAndDisplayData);
 
 const switchUnit = document.querySelector('.celsius-fahrenheit-switch input');
 switchUnit.addEventListener('click', () => {
-    const selectedUnit = DOM.getSelectedUnit();
-    const currentTemperature = document.querySelector('.temp-number').textContent;
-    const newUnit = WeatherInfo.getSelectedUnit();
-    const convertedTemperature = WeatherInfo.convertDegrees()
+    const currentTemperatureDIV = document.querySelector('.temp-number');
+    const currentTemperature = currentTemperatureDIV.textContent;
+
+    const newUnit = DOM.getSelectedUnit();
+    const oldUnit = newUnit === 'fahrenheit' ? 'celsius' : 'fahrenheit';
+
+    const convertedTemperature = WeatherInfo.convertDegrees(currentTemperature, oldUnit, newUnit);
+    currentTemperatureDIV.textContent = convertedTemperature;
 })
