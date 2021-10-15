@@ -4,11 +4,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
-  devtool: 'source-map',
+  devtool: 'source-map', // Avoid inline-*** and eval-*** use in production as they can increase bundle size and reduce the overall performance.
   mode: 'development',
   output: {
-    filename: 'main.js',
-    assetModuleFilename: 'assets/[hash][ext][query]',
+    // the hash is calculated from the code included in the js file, so if the code stays the same the hash also does
+    // if a filename changes, the browser has it not in cache anymore, if the filename stays the same, it tries to get it from the cache
+    // https://stackoverflow.com/questions/59194365/webpack-4-hash-and-contenthash-and-chunkhash-when-to-use-which
+    filename: 'main.[contenthash].js',
+    assetModuleFilename: 'assets/[contenthash][ext][query]',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
@@ -80,6 +83,8 @@ module.exports = {
       ],
   },
 
+
+  // https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',

@@ -11,7 +11,7 @@
         "sourceType": "module",
         "requireConfigFile": false
     },
-    "ignorePatterns": ["/node_modules/", "webpack.config.js"],
+    "ignorePatterns": ["/node_modules/", "webpack.config.js", "webpack.common.js", "webpack.dev.js", "webpack.prod.js"],
     "rules": {
         "indent": "off",
         "max-classes-per-file": "off"
