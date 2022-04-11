@@ -6,7 +6,7 @@ Based on the weather, it chooses a video as a background and an icon, which rese
 
 > :warning: If you are using FireFox, please visit `about:config` and set `layout.css.backdrop-filter.enabled` and `gfx.webrender.all` both to true. **This is optional**, and a polyfill is included, if you refuse to do this. 
 > 
-> This page just looks better with the CSS property `backdrop-filter` properly rendered/enabled.
+> The page just looks better with the CSS property `backdrop-filter` properly rendered/enabled.
 
 ## Table of Contents
 - [Deployed links](#globe_with_meridians-deployed-links)
