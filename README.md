@@ -2,7 +2,7 @@
 
 This application uses the [OpenWeatherMap API](https://openweathermap.org/api) to display the current weather for an entered location. The provided information consists of the temperature and a vague and a detailed description of the weather. The temperate can be displayed in °C or °F.
 
-Based on the weather, it chooses a video as a background and an icon, which resemble the weather.
+Based on the weather, it chooses a video as a background and an icon, which resembles it.
 
 > :warning: If you are using FireFox, please visit `about:config` and set `layout.css.backdrop-filter.enabled` and `gfx.webrender.all` both to true. **This is optional**, and a polyfill is included, if you refuse to do this. 
 > 
